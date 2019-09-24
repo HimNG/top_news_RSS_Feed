@@ -1,5 +1,5 @@
 import feedparser
-from flask import Flask,render_template
+from flask import Flask,render_template,request
 
 app=Flask(__name__)
 
@@ -18,54 +18,16 @@ RSS_FEEDS = {
     'tech'    : 'https://economictimes.indiatimes.com/industry/tech/rssfeeds/56811438.cms'
 }
 
-
 @app.route("/")
-def index():
-    return render_template("index.html")
+def get_news():
+    query=request.args.get("publication")
+    if not query or query.lower() not in RSS_FEEDS:
+        publication="tech"
+    else:
+        publication=query.lower()
 
-
-@app.route("/<publication>")
-def get_news(publication="tech"):
     feed = feedparser.parse(RSS_FEEDS[publication])
-    #first_article = feed['entries'][0]
-    #print(first_article)
-    print(feed['entries'][0])
     return render_template("home.html", articles=feed['entries'])
-
-
-        #  title=first_article.get("title"),
-        #  published=first_article.get("published"),
-        #  summary=first_article.get("summary"))
-
-
-    # my_string=''
-    # for i in range(NUMBER_OF_TOP_NEWS):
-    #     first_article = feed['entries'][i]
-        # print(type(feed))
-        # print(feed)
-    #     my_string += """
-    #                 <a href={0}><b>{1}</b></a> <br />
-    #                 <i>{2}</i> <br />
-    #                 <p>{3}</p> <br /><br />
-    #             <hr>
-    #             """.format(first_article.get("link"), first_article["title"],
-    #                        first_article.get("published"),
-    #                        first_article.get("summary"))
-
-
-    # print(my_string)
-
-    # return """<html>
-    #         <body>
-    #         """ + my_string + """
-    #         </body>
-    #         </html>
-    #     """
-
-    # return render_template("home.html",title=first_article.get("title"),
-    # published=first_article.get("published"),
-    # summary=first_article.get("summary"))
-
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
