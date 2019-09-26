@@ -1,9 +1,11 @@
+import datetime
 import feedparser
 from flask import Flask,render_template,request
 import json
 import urllib
 import urllib.request as urllib2
-
+from pyspark.sql.types import *
+from graphframes import *
 
 
 app=Flask(__name__)
@@ -92,11 +94,13 @@ def home():
         rate=rate,
         currencies=sorted(currencies))
 
+
 def get_news(query):
     if not query or query.lower() not in RSS_FEEDS:
         publication = DEFAULTS["publication"]
     else:
         publication = query.lower()
+
     feed = feedparser.parse(RSS_FEEDS[publication])
     return feed['entries']
 

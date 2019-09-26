@@ -8,7 +8,7 @@
     <h1>Headlines</h1>
     <h2>Current weather</h2>
     <p>City: <b>{{weather.city}} , {{weather.country}} </b></p>
-    <p>{{weather.description}} |{{weather.temperature}}℃</p>
+    <p>{{weather.description}} | {{weather.temperature}}℃</p>
     <form>
         <input type="text" name="city" placeholder="weather search">
         <input type="submit" value="Submit">
@@ -16,12 +16,14 @@
 
     <h2>Currency</h2>
     <form>
+
         From:
         <select name="currency_from">
             {% for currency in currencies %}
             <option value="{{currency}}">{{currency}}</option>
             {% endfor %}
         </select>
+
         To:
         <select name="currency_to">
             {% for currency in currencies %}
@@ -30,7 +32,9 @@
         </select>
 
         <input type="submit" value="Submit">
+
     </form>
+
     1 {{currency_from}} = {{currency_to}} {{rate}}
 
     <h2>Headlines</h2>
@@ -38,6 +42,18 @@
         <input type="text" name="publication" placeholder="search" />
         <input type="submit" value="Submit" />
     </form>
+
+    <a href='http://localhost:5000/?publication=economy'>Economy</a>
+    <a href='http://localhost:5000/?publication=politics'>&nbsp;&nbsp;&nbsp;Politics and Nation</a>
+    <a href='http://localhost:5000/?publication=science'>&nbsp;&nbsp;&nbsp;Science</a>
+    <a href='http://localhost:5000/?publication=stock'>&nbsp;&nbsp;&nbsp;Stocks</a>
+    <a href='http://localhost:5000/?publication=ipo'>&nbsp;&nbsp;&nbsp;IPOs/FPOs</a>
+    <a href='http://localhost:5000/?publication=bond'>&nbsp;&nbsp;&nbsp;Bonds</a>
+    <a href='http://localhost:5000/?publication=auto'>&nbsp;&nbsp;&nbsp;Auto</a>
+    <a href='http://localhost:5000/?publication=banking'>&nbsp;&nbsp;&nbsp;Banking/Finance</a>
+    <a href='http://localhost:5000/?publication=tech'>&nbsp;&nbsp;&nbsp;Tech</a>
+
+    <br /><br />
 
     {% for article in articles %}
     <b><a href="{{article.link}}">{{article.title}}</a></b><br />
